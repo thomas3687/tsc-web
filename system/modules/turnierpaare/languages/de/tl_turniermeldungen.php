@@ -8,7 +8,7 @@ $GLOBALS['TL_LANG']['tabelle']['feld'][1] = Detail infos
 
 */
 
-$GLOBALS['TL_LANG']['tl_turniermeldungen']['stateReference'] = array('NEW' => 'Offen', 'CONF' => 'Bestätigt', 'REJ' => 'Abgelehnt'); 
+$GLOBALS['TL_LANG']['tl_turniermeldungen']['stateReference'] = array('NEW' => 'Offen', 'CONF' => 'Gemeldet', 'BES' => 'Bestätigt', 'REJ' => 'Abgelehnt'); 
  
 $GLOBALS['TL_LANG']['tl_turniermeldungen']['turniermeldungen_plaar_legend'] = 'Paar';
 
@@ -56,6 +56,9 @@ $GLOBALS['TL_LANG']['tl_turniermeldungen']['show'][1] = 'Details der Meldung ID 
 
 $GLOBALS['TL_LANG']['tl_turniermeldungen']['offen'][0] = 'Offen';
 $GLOBALS['TL_LANG']['tl_turniermeldungen']['offen'][1] = 'Meldung als "Offen" markieren';
+
+$GLOBALS['TL_LANG']['tl_turniermeldungen']['bestätigt'][0] = 'Bestätigt';
+$GLOBALS['TL_LANG']['tl_turniermeldungen']['bestätigt'][1] = 'Meldung als "Bestätigt" markieren';
 
 $GLOBALS['TL_LANG']['tl_turniermeldungen']['abgelehnt'][0] = 'Abgelehnt';
 $GLOBALS['TL_LANG']['tl_turniermeldungen']['abgelehnt'][1] = 'Meldung als "Abgelehnt" markieren';

@@ -1,4 +1,5 @@
 <?php
+
 class tl_turniermeldungen extends Backend 
 { 
     /** 
@@ -17,11 +18,17 @@ public function checkMeldungState($row, $label){
 	if($row['state'] == 'NEW'){
 		//meldungen die in 4 wochen anstehen orange markieren
 		if(($row['date']-time()) <= (60*60*24*7*4)){
-			$style = "color:#FFA600;";
+			$style = "color:#000000;";
 			}
 		}
-	if($row['state'] == 'CONF'){
+		
+	if($row['state'] == 'BES'){
 		$style = "color:#0DFF00;";
+		}	
+		
+		
+	if($row['state'] == 'CONF'){
+		$style = "color:#FFA600;";
 		}
 	if($row['state'] == 'REJ'){
 		$style = "color:#FF0000;";
@@ -79,7 +86,13 @@ public function checkMeldungState($row, $label){
                                    SET state = 'CONF' 
                                    WHERE id =".Input::get('id')) 
                          ->execute();
-		 }	
+		 }
+	if (Input::get('mode') == 'bestätigt'){
+		 $this->Database->prepare("UPDATE tl_turniermeldungen 
+                                   SET state = 'BES' 
+                                   WHERE id =".Input::get('id')) 
+                         ->execute();
+		 }		 	
 	if (Input::get('mode') == 'abgelehnt'){
 		 $this->Database->prepare("UPDATE tl_turniermeldungen 
                                    SET state = 'REJ' 
@@ -88,6 +101,15 @@ public function checkMeldungState($row, $label){
 		 }	  
 	 
 	 }
+	 
+	public function checkDate($varValue){
+		
+		if(!$varValue){
+		return time();
+		}else{
+		return $varValue;	
+			}
+		}	 
  
   public function getCouples() 
     { 
@@ -163,7 +185,7 @@ $GLOBALS['TL_DCA']['tl_turniermeldungen'] = array
 			'mode'        => 2,
 			'fields'      => array('date ASC', 'place', 'class'),
 			'panelLayout' => 'filter,search',
-			'filter'		=> array(array('date>=?', time()))
+			'filter'		=> array(array('date>=?', time()-(60*60*24)))
 		),
 		
 		
@@ -206,19 +228,26 @@ $GLOBALS['TL_DCA']['tl_turniermeldungen'] = array
 				'href'  => 'act=edit',
 				'icon'  => 'edit.gif'
 			),
-			'gemeldet'   => array
-			(
-				'label' => &$GLOBALS['TL_LANG']['tl_turniermeldungen']['gemeldet'],
-				'href'  => 'mode=gemeldet',
-				'button_callback'  => array('tl_turniermeldungen', 'meldungAction'),
-				'icon'  => 'system/modules/turnierpaare/assets/images/green-ball.png'
-			),
 			'offen'   => array
 			(
 				'label' => &$GLOBALS['TL_LANG']['tl_turniermeldungen']['offen'],
 				'href'  => 'mode=offen',
 				'button_callback'  => array('tl_turniermeldungen', 'meldungAction'),
+				'icon'  => 'system/modules/turnierpaare/assets/images/black-ball.png'
+			),
+			'gemeldet'   => array
+			(
+				'label' => &$GLOBALS['TL_LANG']['tl_turniermeldungen']['gemeldet'],
+				'href'  => 'mode=gemeldet',
+				'button_callback'  => array('tl_turniermeldungen', 'meldungAction'),
 				'icon'  => 'system/modules/turnierpaare/assets/images/orange-ball.png'
+			),
+			'bestätigt'   => array
+			(
+				'label' => &$GLOBALS['TL_LANG']['tl_turniermeldungen']['bestätigt'],
+				'href'  => 'mode=bestätigt',
+				'button_callback'  => array('tl_turniermeldungen', 'meldungAction'),
+				'icon'  => 'system/modules/turnierpaare/assets/images/green-ball.png'
 			),
 			'abgelehnt'   => array
 			(
@@ -288,6 +317,7 @@ $GLOBALS['TL_DCA']['tl_turniermeldungen'] = array
 			'flag'      => 6,
 			'filter'	=> true,
             'search'    => false,
+			'load_callback' => array(array('tl_turniermeldungen','checkDate')),
 			'eval'                    => array('mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard', 'minlength' => 1, 'maxlength'=>64, 'rgxp' => 'date'),
 			'sql'       => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -429,7 +459,7 @@ $GLOBALS['TL_DCA']['tl_turniermeldungen'] = array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_turniermeldungen']['state'],
 			'inputType' => 'select',
-			'options' => array('NEW', 'CONF', 'REJ'),
+			'options' => array('NEW', 'CONF', 'BES','REJ'),
 			'reference' => &$GLOBALS['TL_LANG']['tl_turniermeldungen']['stateReference'],
 			'exclude'   => false,
 			'sorting'   => false,
