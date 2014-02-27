@@ -1,5 +1,4 @@
 <?php
-
 ### INSTALL SCRIPT START ###
 $GLOBALS['TL_CONFIG']['licenseAccepted'] = true;
 $GLOBALS['TL_CONFIG']['installPassword'] = '$6$37b54db496799b73$4jjBWijgV4mVk17GItiuqHdJkPt0acR4eLa/eO2W3Qm8RTOI5lOnbDidpXDnXseeo6RpWnk0slZP9BzKRuzSZ/';
