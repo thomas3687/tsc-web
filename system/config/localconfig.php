@@ -1,10 +1,8 @@
 <?php
-
-
 ### INSTALL SCRIPT START ###
 $GLOBALS['TL_CONFIG']['licenseAccepted'] = true;
 $GLOBALS['TL_CONFIG']['installPassword'] = '';
-$GLOBALS['TL_CONFIG']['encryptionKey'] = '447f95833aa364b21e4bf377e68c74a5';
+$GLOBALS['TL_CONFIG']['encryptionKey'] = '';
 $GLOBALS['TL_CONFIG']['dbDriver'] = '';
 $GLOBALS['TL_CONFIG']['dbHost'] = '';
 $GLOBALS['TL_CONFIG']['dbUser'] = '';
